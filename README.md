@@ -1,2 +1,6 @@
 # SikorkiV2
-Angular + NodeJS
+Going along with MERN stack course:
+- MongoDB
+- Express
+- React
+- NodeJS
