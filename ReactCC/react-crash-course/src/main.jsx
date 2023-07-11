@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Posts from './routes/Posts';
+import Posts, { loader as postsLoader } from './routes/Posts';
 import RootLayout from './routes/RootLayout';
-import NewPost from './routes/NewPost';
+import NewPost, { action as formSubmission } from './routes/NewPost';
+import PostDetails, { loader as postDetailsLoader } from './routes/PostDetails';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -14,18 +15,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Posts />,
-        children: [{ path: '/create', element: <NewPost /> }],
+        loader: postsLoader,
+        children: [
+          { path: '/create', element: <NewPost />, action: formSubmission },
+          { path: '/:id', element: <PostDetails />, loader: postDetailsLoader },
+        ],
       },
     ],
   },
-  // {
-  //   path: "*",
-  //   element: (
-  //     <div style={{ textAlign: "center", color: "white" }}>
-  //       <p>Route not known</p>
-  //     </div>
-  //   ),
-  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
