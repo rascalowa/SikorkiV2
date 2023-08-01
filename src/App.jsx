@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 
-import GoalList from './components/GoalList/GoalList';
-import NewGoal from './components/NewGoal/NewGoal';
-import './App.css';
+import Users from './user/pages/Users';
+import NewPlace from './places/pages/NewPlace';
 
 const App = () => {
-  const [courseGoals, setCourseGoals] = useState([
-    { id: 'cg1', text: 'Learn' },
-    { id: 'cg2', text: 'React' },
-    { id: 'cg3', text: 'and Node' },
-  ]);
-
-  const addNewGoalHandler = (newGoal) => {
-    setCourseGoals((prevCourseGoals) => {
-      return prevCourseGoals.concat(newGoal);
-    });
-  };
-
   return (
-    <div className='course-goals'>
-      <h2>A React App</h2>
-      <NewGoal onAddGoal={addNewGoalHandler} />
-      <GoalList goals={courseGoals} />
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/' exact={true}>
+          <Users />
+        </Route>
+        <Route path='/places/new' exact={true}>
+          <NewPlace />
+        </Route>
+        <Redirect to='/'></Redirect>
+      </Switch>
+    </Router>
   );
 };
 
